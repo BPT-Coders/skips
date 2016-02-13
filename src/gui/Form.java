@@ -6,7 +6,11 @@
 package gui;
 
 import java.awt.Dimension;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,11 +20,19 @@ public class Form extends javax.swing.JFrame {
     
     ArrayList<Student> students = new ArrayList<Student>();
     int i = 10;
+    ComboDate comboDate = new ComboDate();
+    public static data.Data data;
+    String[] lastNames;
     /**
      * Creates new form Form
      */
-    public Form() {
+    public Form() throws IOException {
+        this.data = new data.Data();
+        lastNames = data.getLastNames();
         initComponents();
+        
+        this.add(comboDate);
+        comboDate.setBounds(10, 10, 200, 30);
     }
 
     /**
@@ -36,6 +48,7 @@ public class Form extends javax.swing.JFrame {
         pane = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,6 +82,13 @@ public class Form extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Очистить");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -80,18 +100,21 @@ public class Form extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                .addContainerGap(88, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap())
         );
 
@@ -102,7 +125,7 @@ public class Form extends javax.swing.JFrame {
         Dimension d = new Dimension();
         d.setSize(500, 1000);
         
-        students.add(new Student());
+        students.add(new Student(lastNames));
         Student st = students.get(students.size() - 1);
 
         pane.setPreferredSize(d);
@@ -114,12 +137,29 @@ public class Form extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ArrayList<String[]> toSave = new ArrayList<String[]>();
+        ArrayList<HashMap<String, String>> toSave = new ArrayList<HashMap<String, String>>();
         for(Student stupid : students){
             toSave.add(stupid.getValues());
         }
+        data.saveSkips(toSave, comboDate.getDate());
+        
         //Отправить коллекцию toSave в бд
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        System.out.println("Текущий размер " + students.size());
+        System.out.println("Очистка");
+        System.out.println("... ");
+        for(Student student : students){
+            pane.remove(student);
+        }
+        students.clear();
+        pane.revalidate();
+        pane.repaint();
+        i = 10;
+        System.out.println("... ");
+        System.out.println("Новый размер " + students.size());
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,7 +191,11 @@ public class Form extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Form().setVisible(true);
+                try {
+                    new Form().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Form.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -159,6 +203,7 @@ public class Form extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pane;
     // End of variables declaration//GEN-END:variables
