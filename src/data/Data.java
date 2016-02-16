@@ -9,6 +9,8 @@ package data;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,8 +19,12 @@ import java.util.HashMap;
 public class Data {
     Students students;
     Skips skips;
-    public Data() throws IOException {
-        this.students = new Students();
+    public Data() {
+        try {
+            this.students = new Students();
+        } catch (IOException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.skips = new Skips();
     }
     public String[] getLastNames(){

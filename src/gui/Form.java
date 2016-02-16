@@ -1,32 +1,24 @@
 package gui;
 
 import java.awt.Dimension;
-import java.io.IOException;
+import data.Data;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author Andrey
- */
 public class Form extends javax.swing.JFrame {
-    
-    ArrayList<Student> students = new ArrayList<Student>();
-    int i = 10;
+    public static Data data;
+    ArrayList<Student> students = new ArrayList<>();
     ComboDate comboDate = new ComboDate();
-    public static data.Data data;
     String[] lastNames;
     int heightPane = 190;
+    int i = 10; // отступ сверху в панели
     /**
      * Creates new form Form
      */
-    public Form() throws IOException {
-        this.data = new data.Data();
+    public Form()  {
+        data = new Data();
         lastNames = data.getLastNames();
         initComponents();
-        
         this.add(comboDate);
         comboDate.setBounds(10, 10, 200, 30);
     }
@@ -45,6 +37,7 @@ public class Form extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,6 +81,13 @@ public class Form extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("-");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,6 +98,8 @@ public class Form extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
@@ -113,7 +115,8 @@ public class Form extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
                 .addContainerGap())
         );
 
@@ -124,6 +127,7 @@ public class Form extends javax.swing.JFrame {
         students.add(new Student(lastNames));
         Student st = students.get(students.size() - 1);
         pane.add(st);
+        //Отступы и размеры
         st.setBounds(10, i, 210, 45);
         i += 45;
         if (i > pane.getPreferredSize().height){
@@ -134,7 +138,7 @@ public class Form extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ArrayList<HashMap<String, String>> toSave = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String, String>> toSave = new ArrayList<>();
         for(Student stupid : students){
             toSave.add(stupid.getValues());
         }
@@ -142,9 +146,6 @@ public class Form extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        System.out.println("Текущий размер " + students.size());
-        System.out.println("Очистка");
-        System.out.println("... ");
         for(Student student : students){
             pane.remove(student);
         }
@@ -152,9 +153,22 @@ public class Form extends javax.swing.JFrame {
         pane.revalidate();
         pane.repaint();
         i = 10;
-        System.out.println("... ");
-        System.out.println("Новый размер " + students.size());
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        Student st = students.get(students.size() - 1);
+        pane.remove(st);
+        students.remove(st);
+        //Отступы и размеры
+        i -= 45;
+        if (i < pane.getPreferredSize().height){
+            heightPane -= 45;
+        }
+        Dimension d = new Dimension(250, heightPane);
+        pane.setPreferredSize(d);
+        pane.revalidate();
+        pane.repaint();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,11 +200,7 @@ public class Form extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new Form().setVisible(true);
-                } catch (IOException ex) {
-                    Logger.getLogger(Form.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new Form().setVisible(true);
             }
         });
     }
@@ -199,6 +209,7 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pane;
     // End of variables declaration//GEN-END:variables
