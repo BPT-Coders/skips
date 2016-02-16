@@ -39,7 +39,7 @@ public class Student extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<String>();
         jSpinner1 = new javax.swing.JSpinner();
 
-        setPreferredSize(new java.awt.Dimension(240, 45));
+        setPreferredSize(new java.awt.Dimension(200, 45));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

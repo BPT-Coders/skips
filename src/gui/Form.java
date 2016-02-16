@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import java.awt.Dimension;
@@ -23,6 +18,7 @@ public class Form extends javax.swing.JFrame {
     ComboDate comboDate = new ComboDate();
     public static data.Data data;
     String[] lastNames;
+    int heightPane = 190;
     /**
      * Creates new form Form
      */
@@ -53,17 +49,20 @@ public class Form extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jScrollPane1.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(500, 100));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(400, 200));
+
+        pane.setAutoscrolls(true);
+        pane.setPreferredSize(new java.awt.Dimension(250, 190));
 
         javax.swing.GroupLayout paneLayout = new javax.swing.GroupLayout(pane);
         pane.setLayout(paneLayout);
         paneLayout.setHorizontalGroup(
             paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 496, Short.MAX_VALUE)
+            .addGap(0, 396, Short.MAX_VALUE)
         );
         paneLayout.setVerticalGroup(
             paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 233, Short.MAX_VALUE)
+            .addGap(0, 196, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(pane);
@@ -108,8 +107,8 @@ public class Form extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(88, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -122,18 +121,16 @@ public class Form extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Dimension d = new Dimension();
-        d.setSize(500, 1000);
-        
         students.add(new Student(lastNames));
         Student st = students.get(students.size() - 1);
-
-        pane.setPreferredSize(d);
-        
         pane.add(st);
-        st.setBounds(10, i, 240, 45);
+        st.setBounds(10, i, 210, 45);
         i += 45;
-        pane.revalidate();
+        if (i > pane.getPreferredSize().height){
+            heightPane += 45;
+        }
+        Dimension d = new Dimension(250, heightPane);
+        pane.setPreferredSize(d); 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -142,8 +139,6 @@ public class Form extends javax.swing.JFrame {
             toSave.add(stupid.getValues());
         }
         data.saveSkips(toSave, comboDate.getDate());
-        
-        //Отправить коллекцию toSave в бд
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
