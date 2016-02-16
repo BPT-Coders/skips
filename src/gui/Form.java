@@ -1,23 +1,13 @@
 package gui;
 
-import java.awt.Dimension;
 import data.Data;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Form extends javax.swing.JFrame {
     public static Data data;
-    ArrayList<Student> students = new ArrayList<>();
     ComboDate comboDate = new ComboDate();
-    String[] lastNames;
-    int heightPane = 190;
-    int i = 10; // отступ сверху в панели
-    /**
-     * Creates new form Form
-     */
+
     public Form()  {
         data = new Data();
-        lastNames = data.getLastNames();
         initComponents();
         this.add(comboDate);
         comboDate.setBounds(10, 10, 200, 30);
@@ -33,32 +23,30 @@ public class Form extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        pane = new javax.swing.JPanel();
+        scrollPane1 = new gui.ScrollPane();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Электронная рапортичка");
 
         jScrollPane1.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(400, 200));
 
-        pane.setAutoscrolls(true);
-        pane.setPreferredSize(new java.awt.Dimension(250, 190));
-
-        javax.swing.GroupLayout paneLayout = new javax.swing.GroupLayout(pane);
-        pane.setLayout(paneLayout);
-        paneLayout.setHorizontalGroup(
-            paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout scrollPane1Layout = new javax.swing.GroupLayout(scrollPane1);
+        scrollPane1.setLayout(scrollPane1Layout);
+        scrollPane1Layout.setHorizontalGroup(
+            scrollPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 396, Short.MAX_VALUE)
         );
-        paneLayout.setVerticalGroup(
-            paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        scrollPane1Layout.setVerticalGroup(
+            scrollPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 196, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(pane);
+        jScrollPane1.setViewportView(scrollPane1);
 
         jButton1.setText("+");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -97,12 +85,12 @@ public class Form extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)))
                 .addContainerGap())
         );
@@ -124,50 +112,19 @@ public class Form extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        students.add(new Student(lastNames));
-        Student st = students.get(students.size() - 1);
-        pane.add(st);
-        //Отступы и размеры
-        st.setBounds(10, i, 210, 45);
-        i += 45;
-        if (i > pane.getPreferredSize().height){
-            heightPane += 45;
-        }
-        Dimension d = new Dimension(250, heightPane);
-        pane.setPreferredSize(d); 
+        scrollPane1.addStudent();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ArrayList<HashMap<String, String>> toSave = new ArrayList<>();
-        for(Student stupid : students){
-            toSave.add(stupid.getValues());
-        }
-        data.saveSkips(toSave, comboDate.getDate());
+        data.saveSkips(scrollPane1.getDataToSave(), comboDate.getDate());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        for(Student student : students){
-            pane.remove(student);
-        }
-        students.clear();
-        pane.revalidate();
-        pane.repaint();
-        i = 10;
+        scrollPane1.clear();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Student st = students.get(students.size() - 1);
-        pane.remove(st);
-        students.remove(st);
-        //Отступы и размеры
-        i -= 45;
-        if (i < pane.getPreferredSize().height){
-            heightPane -= 45;
-        }
-        Dimension d = new Dimension(250, heightPane);
-        pane.setPreferredSize(d);
-        pane.revalidate();
-        pane.repaint();
+        scrollPane1.removeStudent();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -211,6 +168,6 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel pane;
+    private gui.ScrollPane scrollPane1;
     // End of variables declaration//GEN-END:variables
 }
