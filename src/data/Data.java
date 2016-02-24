@@ -36,4 +36,7 @@ public class Data {
     public String getIdOnLastName(String lastName){
         return students.getIdOnLastName(lastName);
     }
+    public String getLastDate(){
+        return skips.getLastDate();
+    }
 }

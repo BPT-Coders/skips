@@ -37,6 +37,11 @@ public class Skips extends Manager {
         JOptionPane.showMessageDialog(null, "Данные сохранены");
 
     }
+    public String getLastDate(){
+        String quary = "SELECT MAX( DATE ) FROM  `skips`;";
+        String[][] res = dataSource.getRow(quary);
+        return res[0][0];
+    }
 
     
 }
