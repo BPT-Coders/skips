@@ -104,6 +104,36 @@ public class DataSource {
         finally {closeCon();}
         return arr;
     }
+    
+    public String[][] getRow(String q){
+        String[][] arr = null;
+        try
+        {       
+            Class.forName ("com.mysql.jdbc.Driver").newInstance();
+            conn = DriverManager.getConnection (url, userName, password);   
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(q);
+            rs.last();
+            int m = rs.getRow();
+            int n = rs.getMetaData().getColumnCount();
+            rs.beforeFirst();
+            arr = new String[m][n];
+            int i = 0;
+            while (rs.next()){
+                for (int j = 1; j <= n; j++){
+                    arr[i][--j] = rs.getString(++j);
+                    System.out.println(i);
+                }
+                i++;
+            }          
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        finally {closeCon();}
+        return arr;
+    }
 
     public void exe(String q) throws SQLException{
         try

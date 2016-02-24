@@ -1,6 +1,7 @@
 package gui;
 
 import data.Data;
+import javax.swing.JOptionPane;
 
 public class Form extends javax.swing.JFrame {
     public static Data data;
@@ -11,6 +12,7 @@ public class Form extends javax.swing.JFrame {
         initComponents();
         this.add(comboDate);
         comboDate.setBounds(10, 10, 200, 30);
+        JOptionPane.showMessageDialog(null, "Дата последней рапортички: " + data.getLastDate());
     }
 
     /**
