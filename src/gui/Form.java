@@ -1,7 +1,13 @@
 package gui;
 
 import data.Data;
+import export.ReadWrite;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import jxl.read.biff.BiffException;
+import jxl.write.WriteException;
 
 public class Form extends javax.swing.JFrame {
     public static Data data;
@@ -13,6 +19,20 @@ public class Form extends javax.swing.JFrame {
         this.add(comboDate);
         comboDate.setBounds(10, 10, 200, 30);
         JOptionPane.showMessageDialog(null, "Дата последней рапортички: " + data.getLastDate());
+        
+        ReadWrite rw = new ReadWrite("D:\\example2.xls", "D:\\output2.xls");
+        try {
+            try {
+                rw.readWrite();
+            } catch (BiffException ex) {
+                Logger.getLogger(Form.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (WriteException ex) {
+                Logger.getLogger(Form.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Form.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
     }
 
     /**

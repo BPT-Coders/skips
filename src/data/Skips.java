@@ -42,6 +42,4 @@ public class Skips extends Manager {
         String[][] res = dataSource.getRow(quary);
         return res[0][0];
     }
-
-    
 }
