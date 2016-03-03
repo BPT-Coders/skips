@@ -1,18 +1,18 @@
 package gui;
 
 import data.Data;
+import export.ExportExcel;
 import javax.swing.JOptionPane;
 
 public class Form extends javax.swing.JFrame {
-    public static Data data;
+    public static Data data = new Data();
     ComboDate comboDate = new ComboDate();
 
     public Form()  {
-        data = new Data();
         initComponents();
         this.add(comboDate);
         comboDate.setBounds(10, 10, 200, 30);
-        JOptionPane.showMessageDialog(null, "Дата последней рапортички: " + data.getLastDate());
+        JOptionPane.showMessageDialog(null, "Дата последней рапортички: " + data.getLastDate());            
     }
 
     /**
@@ -30,6 +30,7 @@ public class Form extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Электронная рапортичка");
@@ -78,6 +79,13 @@ public class Form extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setText("Ведомость");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,6 +99,8 @@ public class Form extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)))
@@ -106,7 +116,8 @@ public class Form extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(jButton4)
+                    .addComponent(jButton5))
                 .addContainerGap())
         );
 
@@ -128,6 +139,10 @@ public class Form extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         scrollPane1.removeStudent();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        ExportExcel exportExcel = new ExportExcel("D:\\example2.xls", "D:\\output2.xls");
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,6 +184,7 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JScrollPane jScrollPane1;
     private gui.ScrollPane scrollPane1;
     // End of variables declaration//GEN-END:variables
