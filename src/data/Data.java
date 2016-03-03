@@ -39,4 +39,7 @@ public class Data {
     public String getLastDate(){
         return skips.getLastDate();
     }
+    public String[][] getSkips(String idStudent){
+        return skips.getSkips(idStudent);
+    }
 }
