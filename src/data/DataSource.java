@@ -32,7 +32,7 @@ public class DataSource {
         url = settings.get("url");
     }
     void initSettings() throws IOException{
-        String filePath = "D:\\properties.ini";
+        String filePath = ".\\etc\\properties.ini";
         FileInputStream fileInputStream = null;
         //FileOutputStream fileOutputStream = null;
         Properties properties = new Properties();

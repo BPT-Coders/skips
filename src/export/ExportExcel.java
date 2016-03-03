@@ -8,8 +8,6 @@ import java.util.logging.Logger;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import jxl.write.Label;
-import jxl.write.WritableCellFormat;
-import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
@@ -20,11 +18,11 @@ public class ExportExcel
   private File inputWorkbook;
   private File outputWorkbook;
 
-  public ExportExcel(String input, String output)
+  public ExportExcel()
   {
      try {
-         inputWorkbook = new File(input);
-         outputWorkbook = new File(output);
+         inputWorkbook = new File(".\\etc\\example2.xls");
+         outputWorkbook = new File("D:\\output2.xls");
          data = gui.Form.data;
          
          readWrite();
@@ -37,7 +35,7 @@ public class ExportExcel
      }
   }
 
-  void readWrite() throws IOException, BiffException, WriteException
+  final void readWrite() throws IOException, BiffException, WriteException
   {
     Workbook w1 = Workbook.getWorkbook(inputWorkbook);
 
@@ -58,11 +56,8 @@ public class ExportExcel
         l = new Label(0, rowIndex, student);
         sheet.addCell(l);
         for(String[] skip : data.getSkips(data.getIdOnLastName(student))){
-            WritableFont wf = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD);
-            WritableCellFormat cf = new WritableCellFormat(wf);
-            cf.setWrap(true);
             int colIndex = Integer.parseInt(skip[1].substring(8, 10));   
-            l = new Label(colIndex, rowIndex, skip[2], cf);
+            l = new Label(colIndex, rowIndex, skip[2]);
             sheet.addCell(l);
         }
         rowIndex++;

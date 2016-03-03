@@ -2,6 +2,7 @@ package gui;
 
 import data.Data;
 import export.ExportExcel;
+import java.io.File;
 import javax.swing.JOptionPane;
 
 public class Form extends javax.swing.JFrame {
@@ -141,7 +142,7 @@ public class Form extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        ExportExcel exportExcel = new ExportExcel("D:\\example2.xls", "D:\\output2.xls");
+        ExportExcel exportExcel = new ExportExcel();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
