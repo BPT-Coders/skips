@@ -27,10 +27,12 @@ public class ScrollPane extends javax.swing.JPanel {
      */
     public ScrollPane() {
         initComponents();
-        data = Form.data;
-        lastNames = data.getLastNames();
         students = new ArrayList<>();
         clear();
+    }
+    public void initData(){
+        data = Form.data;
+        lastNames = data.getLastNames();
     }
     
     public void addStudent(){

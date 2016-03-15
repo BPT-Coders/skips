@@ -2,7 +2,6 @@ package gui;
 
 import data.Data;
 import export.ExportExcel;
-import java.io.File;
 import javax.swing.JOptionPane;
 
 public class Form extends javax.swing.JFrame {
@@ -13,6 +12,7 @@ public class Form extends javax.swing.JFrame {
         initComponents();
         this.add(comboDate);
         comboDate.setBounds(10, 10, 200, 30);
+        scrollPane1.initData();
         JOptionPane.showMessageDialog(null, "Дата последней рапортички: " + data.getLastDate());            
     }
 
