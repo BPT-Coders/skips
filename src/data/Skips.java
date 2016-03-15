@@ -42,11 +42,11 @@ public class Skips extends Manager {
     }
     public String getLastDate(){
         String quary = "SELECT MAX( DATE ) FROM  `skips`;";
-        String[][] res = dataSource.getRow(quary);
+        String[][] res = dataSource.getTab(quary);
         return res[0][0];
     }
     void getAllSkips(){
-        allSkips = dataSource.getTab("skips WHERE MONTH( DATE ) = 02");
+        allSkips = dataSource.getTab("SELECT * from skips WHERE MONTH( DATE ) = 02");
     }
     public String[][] getSkips(String idStudent){
         //Выборка пропусков по id студента

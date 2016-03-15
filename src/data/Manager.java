@@ -11,7 +11,7 @@ public class Manager {
         this.dataSource = new DataSource();
     }
     public void initTable(String nameTable){
-        table = dataSource.getTab(nameTable);
+        table = dataSource.getTab("select * from " + nameTable + ";");
     }
     
     
