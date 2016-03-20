@@ -1,7 +1,7 @@
 package gui;
 
 import data.Data;
-import export.ExportExcel;
+import export.Excel;
 import javax.swing.JOptionPane;
 
 public class Form extends javax.swing.JFrame {
@@ -142,7 +142,8 @@ public class Form extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        ExportExcel exportExcel = new ExportExcel();
+        export.Form export = new export.Form();
+        export.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

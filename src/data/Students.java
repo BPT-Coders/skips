@@ -1,22 +1,11 @@
 package data;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class Students extends Manager {
     
     public Students() throws IOException {
-        initTable("students");
-    }
-    public void add(String lName, String fName, String mName){
-        String quary = "INSERT INTO students (lName, fName, mName) values ('" + lName + "', '" + fName + "', '" + mName +"');";
-        try {
-            dataSource.exe(quary);
-        } catch (SQLException ex) {
-            Logger.getLogger(Students.class.getName()).log(Level.SEVERE, null, ex);
-        }
         initTable("students");
     }
 
@@ -26,12 +15,22 @@ public class Students extends Manager {
         String result = null;
         for (String[] table1 : table) {
             if (table1[0].equals(id)) {
-                result = table1[3];
+                result = table1[1];
             }
         }
         return result;
     }
 
+    public String getFNameOnId(String id){
+
+        String result = null;
+        for (String[] table1 : table) {
+            if (table1[0].equals(id)) {
+                result = table1[2];
+            }
+        }
+        return result;
+    }
 
     
 

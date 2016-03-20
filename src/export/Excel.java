@@ -11,27 +11,27 @@ import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-public class ExportExcel
+public class Excel
 {
 
  Data data;   
   private File inputWorkbook;
   private File outputWorkbook;
 
-  public ExportExcel()
+  public Excel(String pathFile, String numberMounth)
   {
      try {
          inputWorkbook = new File(".\\etc\\example2.xls");
-         outputWorkbook = new File("D:\\output2.xls");
+         outputWorkbook = new File(pathFile + ".xls");
          data = gui.Form.data;
-         
+         data.getAllSkips(numberMounth);
          readWrite();
      } catch (IOException ex) {
-         Logger.getLogger(ExportExcel.class.getName()).log(Level.SEVERE, null, ex);
+         Logger.getLogger(Excel.class.getName()).log(Level.SEVERE, null, ex);
      } catch (BiffException ex) {
-         Logger.getLogger(ExportExcel.class.getName()).log(Level.SEVERE, null, ex);
+         Logger.getLogger(Excel.class.getName()).log(Level.SEVERE, null, ex);
      } catch (WriteException ex) {
-         Logger.getLogger(ExportExcel.class.getName()).log(Level.SEVERE, null, ex);
+         Logger.getLogger(Excel.class.getName()).log(Level.SEVERE, null, ex);
      }
   }
 
@@ -53,7 +53,7 @@ public class ExportExcel
     int rowIndex = 8;
     Label l;
     for (String student: data.getLastNames()){
-        l = new Label(0, rowIndex, student);
+        l = new Label(0, rowIndex, student + " " + data.getFNameOnId(data.getIdOnLastName(student)));
         sheet.addCell(l);
         for(String[] skip : data.getSkips(data.getIdOnLastName(student))){
             int colIndex = Integer.parseInt(skip[1].substring(8, 10));   
