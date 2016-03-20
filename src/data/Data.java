@@ -36,10 +36,17 @@ public class Data {
     public String getIdOnLastName(String lastName){
         return students.getIdOnLastName(lastName);
     }
+    
+     public String getFNameOnId(String id){
+         return students.getFNameOnId(id);
+     }
     public String getLastDate(){
         return skips.getLastDate();
     }
     public String[][] getSkips(String idStudent){
         return skips.getSkips(idStudent);
+    }
+    public void getAllSkips(String numberMounth){
+        skips.getAllSkips(numberMounth);
     }
 }

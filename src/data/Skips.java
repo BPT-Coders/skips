@@ -21,7 +21,6 @@ public class Skips extends Manager {
     String[][] allSkips;
     public Skips(){
         initTable("skips");
-        getAllSkips();
         
     }
     public void add(ArrayList<HashMap<String, String>> toSave, String date){
@@ -45,15 +44,14 @@ public class Skips extends Manager {
         String[][] res = dataSource.getTab(quary);
         return res[0][0];
     }
-    void getAllSkips(){
-        allSkips = dataSource.getTab("SELECT * from skips WHERE MONTH( DATE ) = 02");
+    public void getAllSkips(String numberMounth){
+        allSkips = dataSource.getTab("SELECT * from skips WHERE MONTH( DATE ) = " + numberMounth + ";");
     }
     public String[][] getSkips(String idStudent){
         //Выборка пропусков по id студента
         int length = 0;
         for (String[] skip: allSkips){
-            if (skip[3].equals(idStudent)){
-                //skips[i] = skip;
+            if (skip[3].equals(idStudent)){                 
                 length++;
             }
         }

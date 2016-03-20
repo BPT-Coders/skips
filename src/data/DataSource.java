@@ -49,8 +49,9 @@ public class DataSource {
             int i = 0;
             while (rs.next()){
                 for (int j = 1; j <= n; j++){
-                    arr[i++][--j] = rs.getString(++j);
+                    arr[i][--j] = rs.getString(++j);
                 }
+                i++;
             }          
         }
         catch (Exception ex)
