@@ -4,8 +4,8 @@ class connect {
 	public $qr_text;//Передача строки запроса
 	private $host = 'localhost';
     private $name = 'sms';
-    private $username = 'root';
-    private $password = '00000000';
+    private $username = 'sms_sender';
+    private $password = '0000';
 	private $connect_to_db;
 
 	
